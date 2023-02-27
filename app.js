@@ -214,10 +214,9 @@ app.put('/api/camiones/:id', (req, res) => {
   let propietario = req.body.propietario
   let peso = req.body.peso
   let estado = req.body.estado
-  let num_viajes = req.body.num_viajes
 
-  let sql = "UPDATE camiones SET placa = ?, propietario = ?, peso = ?, estado = ?, num_viajes = ? WHERE id = ?"
-  conexion.query(sql, [placa, propietario, peso, estado, num_viajes, id], function (error, results) {
+  let sql = "UPDATE camiones SET placa = ?, propietario = ?, peso = ?, estado = ? WHERE id = ?"
+  conexion.query(sql, [placa, propietario, peso, estado, id], function (error, results) {
     if (error) {
       throw error
     } else {
@@ -251,9 +250,10 @@ app.put('/api/envio/:id', (req, res) => {
   let peso_total = req.body.peso_total
   let total_recaudado = req.body.total_recaudado
   let porcentaje_entrega = req.body.porcentaje_entrega
+  let num_viajes = req.body.num_viajes
 
-  let sql = "UPDATE envio SET id_camion = ?, peso_total = ?, total_recaudado = ?, porcentaje_entrega = ? WHERE id = ?"
-  conexion.query(sql, [id_camion, peso_total, total_recaudado, porcentaje_entrega, id], function (error, results) {
+  let sql = "UPDATE envio SET id_camion = ?, peso_total = ?, total_recaudado = ?, porcentaje_entrega = ?, num_viajes = ? WHERE id = ?"
+  conexion.query(sql, [id_camion, peso_total, total_recaudado, porcentaje_entrega, num_viajes, id], function (error, results) {
     if (error) {
       throw error
     } else {
@@ -306,7 +306,6 @@ app.post('/api/camiones', (req, res) => {
     propietario: req.body.propietario,
     peso: req.body.peso,
     estado: req.body.estado,
-    num_viajes: req.body.num_viajes
   }
   let sql = "INSERT INTO camiones SET ?"
   conexion.query(sql, data, function (err, result) {
@@ -347,7 +346,8 @@ app.post('/api/envio', (req, res) => {
     id_camion: req.body.id_camion,
     peso_total: req.body.peso_total,
     total_recaudado: req.body.total_recaudado,
-    porcentaje_entrega: req.body.porcentaje_entrega
+    porcentaje_entrega: req.body.porcentaje_entrega,
+    num_viajes: req.body.num_viajes
   }
   let sql = "INSERT INTO envio SET ?"
   conexion.query(sql, data, function (err, result) {
